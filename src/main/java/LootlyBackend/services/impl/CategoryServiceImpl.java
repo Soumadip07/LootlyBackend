@@ -2,6 +2,7 @@ package LootlyBackend.services.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import LootlyBackend.utils.GenerateSlug;
 
 import LootlyBackend.entities.Category;
 import LootlyBackend.exceptions.ResourceNotFoundException;
@@ -28,6 +29,22 @@ public class CategoryServiceImpl implements CategoryService {
 	public CategoryDto createCategory(CategoryDto categoryDto) {
 		
 		Category cat=this.modelMapper.map(categoryDto, Category.class);
+		
+		cat.setImageName("default.png");
+	    // Generate Slug
+	    String slug = GenerateSlug.generateSlug(categoryDto.getCategoryTitle());
+
+	    // Ensure Uniqueness
+	    int count = 1;
+	    String originalSlug = slug;
+	    while (categoryRepo.existsByCategorySlug(slug)) {
+	        slug = originalSlug + "-" + count;
+	        count++;
+	    }
+
+	    cat.setCategorySlug(slug);
+	    
+	    
 		Category addedCat=this.categoryRepo.save(cat);
 		return this.modelMapper.map(addedCat, CategoryDto.class);
 	}
@@ -39,7 +56,8 @@ public class CategoryServiceImpl implements CategoryService {
 				.orElseThrow(() -> new ResourceNotFoundException("Category ", "Category Id", categoryId));
 		
 		cat.setCategoryTitle(categoryDto.getCategoryDescription());
-		
+		cat.setImageName(categoryDto.getImageName());
+
 		cat.setCategoryDescription(categoryDto.getCategoryDescription());
 		
 		Category updatedcat=this.categoryRepo.save(cat);

@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -33,8 +34,10 @@ public class Product {
 	@Column(name="post_title", length =100, nullable=false)
 	private String title;
 	
-	@Column(length=1000)
+	@Lob
+	@Column(columnDefinition = "TEXT")
 	private String content;
+
 	
 	
 	private String imageName;

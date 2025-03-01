@@ -32,6 +32,12 @@ public class Category {
 
     @Column(name = "description")
     private String categoryDescription;
+    
+    @Column(name = "category_slug")
+    private String categorySlug;
+    
+	private String imageName;
+
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Product> products = new ArrayList<>();
