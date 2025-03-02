@@ -4,9 +4,14 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import LootlyBackend.utils.DiscountType;
+import LootlyBackend.utils.Quantity;
+import LootlyBackend.utils.StockEnum.StockStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,20 +43,41 @@ public class Product {
 	@Column(columnDefinition = "TEXT")
 	private String content;
 
+	 
+    @Column(name = "product_slug")
+    private String productSlug;
+    
+    @Column(name="base_price")
+    private float base_price;
 	
-	
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "quantity")
+    private Quantity quantity;
+    
+    @Column(name = "stock")
+    private Integer stock; 
+    
+    @Column (name="discount")
+    private float discount;
+    
+    @Enumerated(EnumType.STRING)
+    @Column (name ="discount_type")
+    private DiscountType DiscountType ;
+    
 	private String imageName;
 	
 	
 	private Date addedDate;
 	
-	@ManyToOne
-	@JoinColumn(name = "category_id")
-	private Category category;
 	
 	@ManyToOne
 	private User user;
 	
 	@OneToMany(mappedBy="product",cascade=CascadeType.ALL)
 	private Set<Review> reviews=new HashSet<>();
+	
 }

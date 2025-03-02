@@ -22,6 +22,7 @@ import LootlyBackend.repository.CategoryRepo;
 import LootlyBackend.repository.ProductRepo;
 import LootlyBackend.repository.UserRepo;
 import LootlyBackend.services.ProductService;
+import LootlyBackend.utils.GenerateSlug;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -47,10 +48,29 @@ public class ProductServiceImpl implements ProductService {
 				-> new ResourceNotFoundException("Category","category id",categoryId));
 		
 		Product product=this.modelMapper.map(productDto, Product.class);
+		   // Generate Slug
+	    String slug = GenerateSlug.generateSlug(productDto.getTitle());
+
+	    // Ensure Uniqueness
+	    int count = 1;
+	    String originalSlug = slug;
+	    while (productRepo.existsByProductSlug(slug)) {
+	        slug = originalSlug + "-" + count;
+	        count++;
+	    }
+
+	    product.setProductSlug(slug);
 		product.setImageName("default.png");
 		product.setAddedDate(new Date());
 		product.setUser(user);
 		product.setCategory(category);
+		
+	      // Setting new fields
+        product.setBase_price(productDto.getBase_price());
+        product.setQuantity(productDto.getQuantity());
+        product.setStock(productDto.getStock());
+        product.setDiscount(productDto.getDiscount());
+        product.setDiscountType(productDto.getDiscount_type());
 		Product newProduct=this.productRepo.save(product);
 		
 		return this.modelMapper.map(newProduct, ProductDto.class);
@@ -64,6 +84,13 @@ public class ProductServiceImpl implements ProductService {
 		product.setTitle(productDto.getTitle());
 		product.setContent(productDto.getContent());
 		product.setImageName(productDto.getImageName());
+		
+		// Updating new fields
+        product.setBase_price(productDto.getBase_price());
+        product.setQuantity(productDto.getQuantity());
+        product.setStock(productDto.getStock());
+        product.setDiscount(productDto.getDiscount());
+        product.setDiscountType(productDto.getDiscount_type());
 		
 		Product updatedProduct=this.productRepo.save(product);
 		

@@ -10,7 +10,8 @@ import LootlyBackend.entities.User;
 
 
 public interface ProductRepo extends JpaRepository<Product, Integer>{
-	
+    boolean existsByProductSlug(String productSlug);
+
 	List<Product> findByUser(User user); 
 	List<Product> findByCategory(Category category); 
 	

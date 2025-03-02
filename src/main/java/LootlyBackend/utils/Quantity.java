@@ -1,0 +1,41 @@
+package LootlyBackend.utils;
+
+
+    public enum Quantity {
+        ONE_KG,
+        FIVE_HUNDRED_G,
+        ONE_LB,
+        TWO_HUNDRED_G,
+        TWO_POINT_FIVE_KG,
+        FIVE_LB,
+        ONE_LITER,
+        FIVE_HUNDRED_ML,
+        TWO_HUNDRED_FIFTY_ML,
+        ONE_GALLON,
+        TWO_LITERS,
+        ONE_QUART,
+        ONE_PACK,
+        TWO_PACKS,
+        FIVE_PACKS,
+        TEN_PACKS,
+        SIX_PACK,
+        ONE_UNIT,
+        TWO_UNITS,
+        THREE_UNITS,
+        SIX_UNITS,
+        TWELVE_UNITS,
+        ONE_METER,
+        TWO_METERS,
+        FIVE_METERS,
+        ONE_YARD,
+        TEN_FEET,
+        ONE_PIECE,
+        ONE_SET,
+        ONE_BOX,
+        ONE_BOTTLE,
+        ONE_BAG,
+        ONE_CARTON,
+        ONE_ROLL,
+        ONE_SLEEVE;
+    }
+
