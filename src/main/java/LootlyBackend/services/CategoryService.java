@@ -2,7 +2,10 @@ package LootlyBackend.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import LootlyBackend.payloads.CategoryDto;
+@Service
 
 public interface CategoryService {
 

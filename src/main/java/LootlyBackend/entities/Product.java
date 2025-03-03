@@ -47,9 +47,8 @@ public class Product {
     @Column(name = "product_slug")
     private String productSlug;
     
-    @Column(name="base_price")
-    private float base_price;
-	
+    @Column(name = "base_price", nullable = true)  // nullable = true allows null values
+    private Float base_price;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
@@ -80,4 +79,6 @@ public class Product {
 	@OneToMany(mappedBy="product",cascade=CascadeType.ALL)
 	private Set<Review> reviews=new HashSet<>();
 	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CartItem> cartItems = new HashSet<>();
 }
