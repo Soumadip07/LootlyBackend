@@ -1,7 +1,9 @@
 package LootlyBackend.payloads;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import LootlyBackend.entities.Category;
 import LootlyBackend.entities.Review;
@@ -44,4 +46,5 @@ public class ProductDto {
     private UserDto user;
 
     private Set<ReviewDto> reviews = new HashSet<>();
+     private Set<ProductVariantDto> variants = new HashSet<>();  
 }

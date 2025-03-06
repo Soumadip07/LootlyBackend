@@ -1,7 +1,9 @@
 package LootlyBackend.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import LootlyBackend.utils.DiscountType;
@@ -47,7 +49,7 @@ public class Product {
     @Column(name = "product_slug")
     private String productSlug;
     
-    @Column(name = "base_price", nullable = true)  // nullable = true allows null values
+    @Column(name = "base_price", nullable = true)  
     private Float base_price;
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -60,11 +62,11 @@ public class Product {
     @Column(name = "stock")
     private Integer stock; 
     
-    @Column (name="discount")
-    private float discount;
+    @Column (name="discount",nullable = true)
+    private Float discount= 0.0f;
     
     @Enumerated(EnumType.STRING)
-    @Column (name ="discount_type")
+    @Column (name ="discount_type", nullable = true)  
     private DiscountType DiscountType ;
     
 	private String imageName;
@@ -72,6 +74,8 @@ public class Product {
 	
 	private Date addedDate;
 	
+	 @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+     private Set<ProductVariant> variants = new HashSet<>();
 	
 	@ManyToOne
 	private User user;

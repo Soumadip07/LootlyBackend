@@ -47,7 +47,7 @@ public class CartItem {
 	 private float discount;  
 
 	 @Column(name = "total_item_price")
-	 private float totalItemPrice; 
+	 private float totalPrice; 
 	 
 	
 	 

@@ -14,30 +14,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="shipping_address")
+@Table(name="product_variant")
 @Getter
 @Setter
 @NoArgsConstructor
-public class ShippingAdress {
-	
+public class ProductVariant {
+
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Integer shippingId;
+	private Integer productVariantId;
 	
 	 @ManyToOne(fetch = FetchType.LAZY)
-	 @JoinColumn(name = "user_id", nullable = false, unique = true)  // One user, one shipping address
-	 private User user;
+	 @JoinColumn(name = "product_id", nullable = false)
+	 private Product product;
 	
-	@Column(name="full_adress")
-	private String fullAddress;
-	
-	@Column(name="city")
-	private String city;
-	
-	@Column(name="state")
-	private String state;
-	
-	@Column(name="zip_code")
-	private String zipCode;
-
+	 @Column(name="color")
+	 private String color;
+	 
+	 @Column(name="size")
+	 private String size;
+	 
+	 @Column(name="price")
+	 private Float price;
+	 
+	  @Column(name = "stock")
+	  private Integer stock; 
 }

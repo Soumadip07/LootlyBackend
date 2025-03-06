@@ -20,6 +20,7 @@ import LootlyBackend.payloads.ProductDto;
 import LootlyBackend.payloads.ProductResponse;
 import LootlyBackend.repository.CategoryRepo;
 import LootlyBackend.repository.ProductRepo;
+import LootlyBackend.repository.ProductVariantRepo;
 import LootlyBackend.repository.UserRepo;
 import LootlyBackend.services.ProductService;
 import LootlyBackend.utils.GenerateSlug;
@@ -39,6 +40,10 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	private CategoryRepo categoryRepo;
+	
+	@Autowired
+	private ProductVariantRepo productVariantRepo;
+
 	
 	@Override
 	public ProductDto  createProduct(ProductDto productDto,Integer userId, Integer categoryId) {
@@ -71,6 +76,7 @@ public class ProductServiceImpl implements ProductService {
         product.setStock(productDto.getStock());
         product.setDiscount(productDto.getDiscount());
         product.setDiscountType(productDto.getDiscount_type());
+        
 		Product newProduct=this.productRepo.save(product);
 		
 		return this.modelMapper.map(newProduct, ProductDto.class);

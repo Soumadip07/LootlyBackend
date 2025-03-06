@@ -3,8 +3,8 @@ package LootlyBackend.services;
 import org.springframework.stereotype.Service;
 
 import LootlyBackend.payloads.CartDto;
-@Service
 
+@Service
 public interface CartService {
 
     CartDto getCartByUserId(Integer userId);
