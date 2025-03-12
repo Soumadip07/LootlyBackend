@@ -15,6 +15,8 @@ public interface ProductVariantService {
 	 ProductVariantDto getProductVariantById(Integer productVariantId);
 
 	 List<ProductVariantDto> getProductVariantsByProductId(Integer productId);
+	 public ProductVariantDto updateProductVariantImage(Integer productVariantId, ProductVariantDto productVariantDto);
+
 
 	 void deleteProductVariant(Integer productVariantId);
 }

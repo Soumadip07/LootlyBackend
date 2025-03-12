@@ -1,6 +1,8 @@
 package LootlyBackend.payloads;
 
 
+import LootlyBackend.utils.DiscountType;
+import LootlyBackend.utils.Quantity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,5 +18,9 @@ public class ProductVariantDto {
     private Float price;
     private Integer stock;
     
-    
+    private Float basePrice;   
+    private Float discount;    
+    private DiscountType discountType;
+    private Quantity quantity;
+    private String imageName;
 }

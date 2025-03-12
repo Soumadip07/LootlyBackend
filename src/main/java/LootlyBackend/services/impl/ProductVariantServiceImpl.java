@@ -35,10 +35,13 @@ public class ProductVariantServiceImpl implements ProductVariantService {
 	                .orElseThrow(() -> new ResourceNotFoundException("Product", "id", productId));
 		 ProductVariant variant = modelMapper.map(productVariantDto, ProductVariant.class);
 	     variant.setProduct(product);
+	     variant.setImageName(productVariantDto.getImageName());
+
 	     ProductVariant savedVariant = productVariantRepo.save(variant);
 
 	     return modelMapper.map(savedVariant, ProductVariantDto.class);
 	}
+	
 
 	@Override
 	public ProductVariantDto updateProductVariant(Integer productId,Integer variantId, ProductVariantDto productVariantDto) {
@@ -54,8 +57,10 @@ public class ProductVariantServiceImpl implements ProductVariantService {
 
 	@Override
 	public ProductVariantDto getProductVariantById(Integer productVariantId) {
+	    ProductVariant productVariant = productVariantRepo.findById(productVariantId)
+	            .orElseThrow(() -> new ResourceNotFoundException("ProductVariant", "productVariantId", productVariantId));
 
-		return null;
+	    return modelMapper.map(productVariant, ProductVariantDto.class);
 	}
 
 	@Override
@@ -77,6 +82,22 @@ public class ProductVariantServiceImpl implements ProductVariantService {
 		
 		ProductVariant variant=this.productVariantRepo.findById(productVariantId).orElseThrow(()-> new ResourceNotFoundException("ProductVariant","ProductVariant id",productVariantId));
 		this.productVariantRepo.delete(variant);
+	}
+
+
+	@Override
+	public ProductVariantDto updateProductVariantImage(Integer productVariantId, ProductVariantDto productVariantDto) {
+	    ProductVariant variant = this.productVariantRepo.findById(productVariantId)
+	            .orElseThrow(() -> new ResourceNotFoundException("ProductVariant", "ProductVariant id", productVariantId));
+
+	    // Set the new image name
+	    variant.setImageName(productVariantDto.getImageName());
+
+	    // Save updated variant
+	    ProductVariant updatedVariant = productVariantRepo.save(variant);
+
+	    // Return the updated variant as DTO
+	    return modelMapper.map(updatedVariant, ProductVariantDto.class);
 	}
 
 }
