@@ -46,4 +46,11 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<ApiResponse>(apiResponse, HttpStatus.BAD_REQUEST);
 	}
 	
+	 @ExceptionHandler(ProductNotFoundException.class)
+	    public ResponseEntity<Map<String, String>> handleProductNotFoundException(ProductNotFoundException ex) {
+	        Map<String, String> response = new HashMap<>();
+	        response.put("error", ex.getMessage());
+	        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+	    }
+	
 }

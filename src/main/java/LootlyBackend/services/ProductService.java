@@ -29,6 +29,8 @@ public interface ProductService {
 	//get Single product
 	ProductDto getProductById(Integer productId);
 	
+	ProductDto getProductBySlug(String productSlug);
+	
 	
 	//get all product by category
 	

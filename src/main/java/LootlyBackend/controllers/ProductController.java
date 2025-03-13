@@ -97,7 +97,15 @@ public class ProductController {
 		ProductDto productDto= this.productService.getProductById(productId);
 		return new ResponseEntity<ProductDto>(productDto,HttpStatus.OK);
 	}
-	
+	@GetMapping("/products/slug/{productSlug}")
+	public ResponseEntity<ProductDto> getProductBySlug(@PathVariable("productSlug") String productSlug) {
+	    try {
+	        ProductDto productDto = productService.getProductBySlug(productSlug);
+	        return new ResponseEntity<>(productDto, HttpStatus.OK);
+	    } catch (Exception e) {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+	}
 	//delete product
 	@DeleteMapping("/products/{productId}")
 	public ApiResponse deleteProduct(@PathVariable Integer productId) {

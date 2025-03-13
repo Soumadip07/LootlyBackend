@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import LootlyBackend.entities.Category;
 import LootlyBackend.entities.Product;
 import LootlyBackend.entities.User;
+import LootlyBackend.exceptions.ProductNotFoundException;
 import LootlyBackend.exceptions.ResourceNotFoundException;
 import LootlyBackend.payloads.ProductDto;
 import LootlyBackend.payloads.ProductResponse;
@@ -143,7 +144,15 @@ public class ProductServiceImpl implements ProductService {
 		return this.modelMapper.map(product, ProductDto.class);
 		
 	}
+	@Override
+	public ProductDto getProductBySlug(String productSlug) {
+	    Product product = this.productRepo.findByProductSlug(productSlug)
+	        .orElseThrow(() -> new ProductNotFoundException(productSlug));
+	    
+	    return this.modelMapper.map(product, ProductDto.class);
+	}
 
+	
 	@Override
 	public List<ProductDto> getProductsByCategory(Integer categoryId) {
 		
