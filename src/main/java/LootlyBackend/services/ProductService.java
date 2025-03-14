@@ -36,10 +36,13 @@ public interface ProductService {
 	
 	List<ProductDto> getProductsByCategory(Integer categoryId);
 	
-	
+	ProductDto updateProductBySlug(String productSlug, ProductDto productDto);
+
 	//get all products by user
 	List<ProductDto> getProductsByUser(Integer userId);
 	
 	//search products
 	List<ProductDto> searchProducts(String keyword);
+	void deleteProductBySlug(String productSlug);
+
 }

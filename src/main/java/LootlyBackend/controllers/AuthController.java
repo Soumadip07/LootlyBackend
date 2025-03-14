@@ -1,5 +1,6 @@
 package LootlyBackend.controllers;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import LootlyBackend.entities.User;
 import LootlyBackend.exceptions.ApiException;
 import LootlyBackend.payloads.JwtAuthRequest;
 import LootlyBackend.payloads.JwtAuthResponse;
@@ -36,6 +38,8 @@ public class AuthController {
 	
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private ModelMapper mapper;
 	
 	@PostMapping("/login")
 	public ResponseEntity<JwtAuthResponse> createToken(
@@ -48,6 +52,7 @@ public class AuthController {
 		JwtAuthResponse response =new JwtAuthResponse();
 		
 		response.setToken(token);
+		response.setUser(this.mapper.map((User) userDetails, UserDto.class));
 		return new ResponseEntity<JwtAuthResponse>(response,HttpStatus.OK);
 	}
 

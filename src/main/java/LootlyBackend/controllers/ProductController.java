@@ -157,4 +157,21 @@ public class ProductController {
         StreamUtils.copy(resource,response.getOutputStream())   ;
 
     }
+	@PutMapping("/products/slug/{productSlug}")
+public ResponseEntity<ProductDto> updateProductBySlug(
+        @PathVariable String productSlug,
+        @RequestBody ProductDto productDto) {
+    try {
+        ProductDto updatedProduct = productService.updateProductBySlug(productSlug, productDto);
+        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+    } catch (Exception e) {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+}
+@DeleteMapping("/products/slug/{productSlug}")
+public ResponseEntity<ApiResponse> deleteProductBySlug(@PathVariable String productSlug) {
+    productService.deleteProductBySlug(productSlug);
+    return new ResponseEntity<>(new ApiResponse("Product successfully deleted by slug!", true), HttpStatus.OK);
+}
+
 }

@@ -182,5 +182,27 @@ public class ProductServiceImpl implements ProductService {
 		
 		return productDtos;
 	}
+@Override
+public ProductDto updateProductBySlug(String productSlug, ProductDto productDto) {
+    Product product = productRepo.findByProductSlug(productSlug)
+            .orElseThrow(() -> new ProductNotFoundException(productSlug));
+
+    // Update product fields
+    product.setTitle(productDto.getTitle());
+	product.setContent(productDto.getContent());
+    product.setBase_price(productDto.getBase_price());
+    product.setImageName(productDto.getImageName());
+    product.setStock(productDto.getStock());
+    
+    Product updatedProduct = productRepo.save(product);
+    
+    return modelMapper.map(updatedProduct, ProductDto.class);
+}
+@Override
+public void deleteProductBySlug(String productSlug) {
+    Product product = productRepo.findByProductSlug(productSlug)
+            .orElseThrow(() -> new ProductNotFoundException(productSlug));
+    productRepo.delete(product);
+}
 
 }
