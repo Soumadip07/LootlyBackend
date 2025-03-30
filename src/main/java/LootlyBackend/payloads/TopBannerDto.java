@@ -18,6 +18,6 @@ public class TopBannerDto {
 	private String offer_desc_text;
 	
 	private String offer_code_text;
-	
+	 private String imageUrl;
     private String imageName;
 }

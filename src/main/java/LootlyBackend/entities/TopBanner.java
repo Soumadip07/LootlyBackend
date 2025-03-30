@@ -33,6 +33,8 @@ public class TopBanner {
 	
 	private String offer_code_text;
 	
+	 private String imageUrl;
+	 
 	private String imageName;
 
 }
