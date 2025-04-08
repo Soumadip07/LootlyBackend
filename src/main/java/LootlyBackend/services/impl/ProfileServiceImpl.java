@@ -43,6 +43,17 @@ public class ProfileServiceImpl  implements ProfileService{
 	                .orElseThrow(() -> new ResourceNotFoundException("Profile", "id", profileId));
 	        return modelMapper.map(profile, ProfileDto.class);
 	}
+	@Override
+	public ProfileDto getProfileByUserId(Integer userId) {
+	
+	    User user = userRepo.findById(userId)
+	            .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+	    
+	    Profile profile = profileRepo.findByUserId(userId)
+	            .orElseThrow(() -> new ResourceNotFoundException("Profile", "userId", userId));
+	    
+	    return modelMapper.map(profile, ProfileDto.class);
+	}
 
     @Override
     public ProfileDto updateProfile(ProfileDto profileDto, Long profileId) {

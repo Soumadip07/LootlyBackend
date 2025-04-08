@@ -17,5 +17,6 @@ public interface ProfileService {
 	ProfileDto createProfile(ProfileDto profileDto, Integer userId);
 	ProfileDto getProfileById(Long profileId);
 	ProfileDto updateProfile(ProfileDto profileDto, Long profileId);
-	 
+	ProfileDto getProfileByUserId(Integer userId);
+
 }

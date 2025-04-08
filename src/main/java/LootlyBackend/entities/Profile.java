@@ -24,7 +24,7 @@ public class Profile {
 	    private Long profileId; 
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", unique = true)
     private User user;
     
     private String contactNumber;

@@ -39,7 +39,8 @@ public class CartItem {
 	 
 	 @Column(name = "quantity")
 	  private Integer quantity;
-
+	 @Column(name = "stock")
+	  private Integer stock;
 	 @Column(name = "price")
 	  private float price;  
 	 
@@ -49,6 +50,7 @@ public class CartItem {
 	 @Column(name = "total_item_price")
 	 private float totalPrice; 
 	 
-	
+	 @Column(name = "product_image")  
+	 private String productImage; 
 	 
 }

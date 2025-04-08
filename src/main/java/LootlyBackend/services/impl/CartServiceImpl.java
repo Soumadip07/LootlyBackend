@@ -37,12 +37,13 @@ public class CartServiceImpl implements CartService {
     public CartDto addItemToCart(Integer userId, Integer productId, Integer quantity) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "id", productId));
 
         Cart cart = cartRepository.findByUser_Id(userId).orElseGet(() -> {
             Cart newCart = new Cart();
-            newCart.setUser(user);  // Set user for new cart
+            newCart.setUser(user);
             return newCart;
         });
 
@@ -57,16 +58,25 @@ public class CartServiceImpl implements CartService {
                     return newItem;
                 });
 
-        item.setQuantity(item.getQuantity() + quantity);
+        item.setQuantity(quantity);
+        item.setPrice(product.getBase_price());
+        item.setDiscount(0);
+        item.setTotalPrice(product.getBase_price() * quantity);
 
+        // ✅ Set the product image name
+        String imageName = product.getImageName();
+        System.out.println("Setting product image: " + imageName); // Debug log
+        item.setProductImage(imageName);
         if (!cart.getItems().contains(item)) {
             cart.getItems().add(item);
         }
-        // Update the user selected quantity
-        item.setQuantity(quantity); 
+        cart.getItems().forEach(i -> System.out.println("preoduct image"+i.getProductImage()));
+        System.out.println("Setting carrt: " + cart.getItems());
         Cart savedCart = cartRepository.save(cart);
         return mapToDto(savedCart);
     }
+
+
 
     @Override
     public CartDto removeItemFromCart(Integer userId, Integer productId) {
@@ -116,9 +126,9 @@ public class CartServiceImpl implements CartService {
             itemDto.setProductName(item.getProduct().getTitle());
             itemDto.setProductPrice(item.getProduct().getBase_price());
             itemDto.setQuantity(item.getProduct().getQuantity());
-            // For now, assuming quantity is passed separately in the API request (e.g. 2)
-            itemDto.setUserQuantity(item.getQuantity());  // Use the quantity saved in the cart
-
+            itemDto.setStock(item.getProduct().getStock());
+            itemDto.setUserQuantity(item.getQuantity());  
+            itemDto.setProductImage(item.getProduct().getImageName());
             itemDto.setTotalPrice(item.getProduct().getBase_price() * item.getQuantity());
             return itemDto;
         }).collect(Collectors.toList()));

@@ -43,6 +43,12 @@ public class ProfileController {
 	        ProfileDto createdProfile = profileService.createProfile(profileDto, userId);
 	        return ResponseEntity.ok(createdProfile);
 	    }
+	 // Get Profile by User ID
+	    @GetMapping("/user/{userId}")
+	    public ResponseEntity<ProfileDto> getProfileByUserId(@PathVariable Integer userId) {
+	        ProfileDto profileDto = profileService.getProfileByUserId(userId);
+	        return ResponseEntity.ok(profileDto);
+	    }
 
 	    @PostMapping("/image/upload/{profileId}")
 	    public ResponseEntity<ProfileDto> uploadProfileImage(

@@ -22,7 +22,8 @@ public class CartItemDto {
 	    private float productPrice;
 
 	    private Quantity quantity;
-
+	    private Integer stock;
 	    private Integer userQuantity;
-	    private float totalPrice;  // productPrice * itemCount
+	    private float totalPrice; 
+	    private String productImage; 
 }
