@@ -48,6 +48,7 @@
     <artifactId>spring-boot-starter-validation</artifactId>
 </dependency>
 
+<<<<<<< HEAD
 <!-- https://mvnrepository.com/artifact/com.stripe/stripe-java -->
 <dependency>
     <groupId>com.stripe</groupId>
@@ -66,6 +67,8 @@
   <artifactId>dotenv-java</artifactId>
   <version>3.0.0</version>
 </dependency>
+=======
+>>>>>>> parent of 20a60a2 (payment through stripe integration)
 
 	<dependency>
 			<groupId>io.springfox</groupId>
